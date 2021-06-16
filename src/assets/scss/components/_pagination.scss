@@ -85,6 +85,7 @@
     }
     &:hover{
       background-color:$sgreen;
+      color: $white;
      }
     &.active, &:active{
       background-color:$sgreen;

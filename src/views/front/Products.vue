@@ -3,12 +3,16 @@
   <div class="w-100 products-banner position-relative mb-13">
     <div class="sidebar mx-7 mx-md-13">
       <ul class="text-center d-flex flex-wrap justify-content-center">
-        <li>全部商品</li>
-        <li>寶寶系列</li>
-        <li>寶寶系列</li>
+        <li @click.prevent="searchText = ''">
+          全部商品
+        </li>
+        <li v-for="item in categories" :key="item" @click.prevent="searchText = item">
+          {{ item }}
+        </li>
+        <!-- <li>寶寶系列</li>
         <li>身體清潔</li>
         <li>臉部清潔</li>
-        <li>寶寶系列</li>
+        <li>寶寶系列</li> -->
       </ul>
     </div>
   </div>
@@ -40,12 +44,6 @@
                 </button>
               </div>
             </div>
-            <!-- <div class="card-footer position-relative bg-light d-flex align-items-center p-7">
-              <button type="button" @click="addCart(item.id)" class="btn position-absolute start-0 zindex-1 border-end btn-product-card hvr-bounce-to-right py-2 px-0 w-50">
-                <i :class="{ 'disappear' : item.id === loadingStatus.loadingItem }" class="fas fa-shopping-cart me-1"></i>
-                <i v-if="item.id === loadingStatus.loadingItem" class="fas fa-spinner fa-pulse me-1"></i>
-              </button>
-            </div> -->
           </div>
         </a>
       </div>
@@ -68,6 +66,8 @@ export default {
     return {
       isLoading: false,
       products: [], // 產品列表
+      categories: [],
+      searchText: '',
       loadingStatus: { // 讀取效果
         loadingItem: ''
       },
@@ -82,8 +82,20 @@ export default {
       AllProducts: []
     }
   },
+  computed: {
+    filterData () {
+      const vm = this
+      if (vm.searchText) {
+        return vm.products.filter((item) => {
+          const data = item.category.includes(vm.searchText)
+          return data
+        })
+      }
+      return vm.AllProducts
+    }
+  },
   methods: {
-    getProducts (nowPage = 1) {
+    getProducts () {
       const vm = this
       vm.isLoading = true
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
@@ -92,30 +104,38 @@ export default {
         if (res.data.success) {
           vm.isLoading = false
           vm.products = res.data.products
-          // == 客製化 Pagination ==//
-          vm.pages.dataLen = vm.products.length // 取得全部資料長度
-          vm.pages.pageTotal = Math.ceil(vm.pages.dataLen / vm.pages.perpage)
-          if (nowPage > vm.pages.pageTotal) {
-            nowPage = vm.pages.pageTotal
-          }
-          const minData = (nowPage * vm.pages.perpage) - vm.pages.perpage + 1
-          const maxData = (nowPage * vm.pages.perpage)
-          vm.AllProducts = []
-          vm.products.forEach((item, index) => {
-            const num = index + 1
-            if (num >= minData && num <= maxData) {
-              vm.AllProducts.push(item)
-            }
+          // 挑出不重複的 categories
+          const categories = new Set()
+          vm.products.forEach((item) => {
+            categories.add(item.category)
           })
-          console.log(vm.AllProducts)
+          vm.categories = Array.from(categories)
+          vm.getProductsList(vm.products)
         } else {
           vm.toastTopEnd(res.data.message, 'error')
         }
       })
     },
+    getProductsList (productslist) { // 客製化 Pagination
+      const vm = this
+      vm.pages.dataLen = productslist.length // 取得全部資料長度
+      vm.pages.pageTotal = Math.ceil(vm.pages.dataLen / vm.pages.perpage)
+      if (vm.pages.currentPage > vm.pages.pageTotal) {
+        vm.pages.currentPage = vm.pages.pageTotal
+      }
+      const minData = (vm.pages.currentPage * vm.pages.perpage) - vm.pages.perpage + 1
+      const maxData = (vm.pages.currentPage * vm.pages.perpage)
+      vm.AllProducts = []
+      productslist.forEach((item, index) => {
+        const num = index + 1
+        if (num >= minData && num <= maxData) {
+          vm.AllProducts.push(item)
+        }
+      })
+      console.log(vm.AllProducts)
+    },
     getCurrentPage (getPage) {
       this.pages.currentPage = getPage
-      this.getProducts(getPage)
       if (getPage > 1) {
         this.pages.hasPage = true
       } else if (getPage === this.pages.currentPage) {
@@ -126,6 +146,7 @@ export default {
       } else if (getPage === this.pages.pageTotal) {
         this.pages.hasNext = false
       }
+      this.getProducts()
     },
     addCart (id, qty = 1) {
       const vm = this
