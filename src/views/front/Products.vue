@@ -3,10 +3,10 @@
   <div class="w-100 products-banner position-relative mb-13">
     <div class="sidebar mx-7 mx-md-13">
       <ul class="text-center d-flex flex-wrap justify-content-center">
-        <li @click.prevent="searchText = ''">
+        <li class="products-title" @click.prevent="searchTitle('', 0)">
           全部商品
         </li>
-        <li v-for="item in categories" :key="item" @click.prevent="searchText = item">
+        <li class="products-title" v-for="(item, index) in categories" :key="index" @click.prevent="searchTitle(item, index + 1)">
           {{ item }}
         </li>
         <!-- <li>寶寶系列</li>
@@ -95,6 +95,18 @@ export default {
     }
   },
   methods: {
+    searchTitle (txt, num) {
+      this.searchText = txt
+      const title = document.querySelectorAll('.products-title')
+      console.log(title)
+      title.forEach((item, i) => {
+        if (num === i) {
+          title[i].classList.add('active')
+        } else {
+          title[i].classList.remove('active')
+        }
+      })
+    },
     getProducts () {
       const vm = this
       vm.isLoading = true
