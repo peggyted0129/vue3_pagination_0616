@@ -3,7 +3,7 @@
   <nav :class="{ 'navbar-scroll': scrollHeader , 'bg-theme' : togglerBtn }" class="navbar navbar-expand-md py-0">
     <div class="container-fluid container-md align-items-center my-2 my-sm-4 my-md-0">
       <h1 class="h3 ml-5 ml-md-0">
-        <router-link :to="{ name: 'Home' }" class="navbar-logo fw-bold" :class="{ 'text-white' : togglerBtn }">Sebamed</router-link>
+        <router-link :to="{ name: 'Home' }" @click="navScrollUp" class="navbar-logo fw-bold ps-7 ps-sm-0" :class="{ 'text-white' : togglerBtn }">Sebamed</router-link>
       </h1>
       <button class="navbar-toggler" @click="dropdownOpen('togglerBtn')" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <div class="position-relative">

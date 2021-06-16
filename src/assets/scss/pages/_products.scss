@@ -65,6 +65,58 @@
     color: $sgreen;
   }
 }
+/* 前台 Product.vue */
+.product {
+  padding-top: 66px;
+}
+.product-banner {
+  @include banner('~@/assets/img/product_top1.png', 228px);
+  background-position: 50%;
+  & .nav-breadcrumb {
+    position: absolute;
+    padding: 15px;
+    bottom: 15%;
+    left: 60px;
+  }
+}
+.breadcrumb-item:nth-child(2) a {
+  display: inline-block;
+}
+.breadcrumb-item a {
+  color: $theme;
+  font-weight: bolder;
+  font-size: 20px;
+  &:hover {
+    color: $sgreen;
+  }
+}
+.breadcrumb-item.active {
+  color: #b2b2b2;
+  font-weight: bolder;
+  font-size: 20px;
+}
+.breadcrumb-item + .breadcrumb-item {
+  font-size: 20px; // 斜線大小
+}
+.productPicture {
+  position: relative;
+  height: 80%;
+  padding-bottom: 75%;
+}
+.productPicture img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -20%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: 50% 50%;
+  object-position: 50% 50%;
+  border: 10px solid #fefefe;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
 /* 後台 BackShopping.vue */
 .back-category li {
   border-right: 2px solid $hgray;

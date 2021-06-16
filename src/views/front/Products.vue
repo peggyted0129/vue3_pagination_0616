@@ -3,24 +3,20 @@
   <div class="w-100 products-banner position-relative mb-13">
     <div class="sidebar mx-7 mx-md-13">
       <ul class="text-center d-flex flex-wrap justify-content-center">
-        <li class="products-title" @click.prevent="searchTitle('', 0)">
+        <li class="products-title active" @click.prevent="searchTitle('', 0)">
           全部商品
         </li>
         <li class="products-title" v-for="(item, index) in categories" :key="index" @click.prevent="searchTitle(item, index + 1)">
           {{ item }}
         </li>
-        <!-- <li>寶寶系列</li>
-        <li>身體清潔</li>
-        <li>臉部清潔</li>
-        <li>寶寶系列</li> -->
       </ul>
     </div>
   </div>
   <!-- 產品列表 -->
   <div class="container-fluid px-lg-15 px-md-20 px-sm-10 mb-13">
     <div class="row mt-9">
-      <div class="col-xl-3 col-lg-4 col-sm-6 mb-7" v-for="item in AllProducts" :key="item.id">
-        <a href="#" class="product-card">
+      <div class="col-xl-3 col-lg-4 col-sm-6 mb-7" v-for="item in filterData" :key="item.id">
+        <router-link :to="{ name: 'ProductDetail', params: { id: item.id }}" class="product-card">
           <div class="card position-relative back-card-shadow border-0 card-radius">
             <div style="height: 300px; background-size: contain; background-position: center; background-repeat: no-repeat;"
               :style="{backgroundImage: `url(${item.imageUrl})`}">
@@ -45,7 +41,7 @@
               </div>
             </div>
           </div>
-        </a>
+        </router-link>
       </div>
     </div>
     <!-- pagination -->
@@ -87,7 +83,7 @@ export default {
       const vm = this
       if (vm.searchText) {
         return vm.products.filter((item) => {
-          const data = item.category.includes(vm.searchText)
+          const data = item.category.toLowerCase().includes(vm.searchText.toLowerCase())
           return data
         })
       }
@@ -98,7 +94,10 @@ export default {
     searchTitle (txt, num) {
       this.searchText = txt
       const title = document.querySelectorAll('.products-title')
-      console.log(title)
+      if (num === 0) {
+        this.getProducts()
+        this.pages.currentPage = 1
+      }
       title.forEach((item, i) => {
         if (num === i) {
           title[i].classList.add('active')

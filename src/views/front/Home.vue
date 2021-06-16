@@ -128,17 +128,8 @@ export default {
     }
   },
   methods: {
-    animateNone () {
-      const jsAnimate = document.querySelector('.js-animate-carousel')
-      const jsAnimate2 = document.querySelector('.js-animate-carousel-2')
-      setTimeout(() => {
-        jsAnimate.classList.remove('animate__slideInLeft')
-        jsAnimate2.classList.remove('animate__slideInRight')
-      }, 2000)
-    }
   },
   mounted () {
-    this.animateNone()
     AOS.init({
       offset: 120,
       duration: 400
