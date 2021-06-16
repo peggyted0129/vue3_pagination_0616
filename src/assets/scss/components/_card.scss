@@ -16,6 +16,24 @@
   opacity: 0;
   transition: .8s;
 }
+.product-card {
+  margin: 0 20px 0;
+}
+@media(min-width: 414px) {
+  .product-card {
+    margin: 0 40px 0;
+  }
+}
+@media(min-width: 480px) {
+  .product-card {
+    margin: 0 80px 0;
+  }
+}
+@include mobile {
+  .product-card {
+    margin: 0 0px 0;
+  }
+}
 .product-card:hover {
   .card-bg {
     transform: scaleX(1);

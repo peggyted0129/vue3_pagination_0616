@@ -18,10 +18,10 @@
   - 在外層設定開啟 BS5 的 Modal
 - 拆分 BackShopping 對應 UserProductModal
   - 在內層設定開啟 BS5 的 Modal (透過 ref 來呼叫)
-
+- 6/16 客製化 8pcs Pagination 即拆分
 ---
 
-- 注意事項
+- Week5 6/14 注意事項
   - 新增相同產品到購物車時需累加項目
   - 送出訂單後，購物車需要清除原本項目
   - 購物車無產品時不建議發出結帳請求

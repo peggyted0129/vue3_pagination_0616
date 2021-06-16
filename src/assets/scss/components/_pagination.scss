@@ -62,7 +62,7 @@
     margin-left: -1px;
     border:1px solid transparent;
     line-height: 1.5;
-    &.active{  cursor: default;}
+    &.active{ cursor: default;}
     &:active{ outline: none;}
   }
 }
@@ -77,11 +77,11 @@
     background-color: $theme;
     &.prev{
       @include border-radius(50px 0 0 50px);
-      width:100px;
+      width:50px;
     }
     &.next{
       @include border-radius(0 50px 50px 0);
-      width:100px;
+      width:50px;
     }
     &:hover{
       background-color:$sgreen;
@@ -89,5 +89,10 @@
     &.active, &:active{
       background-color:$sgreen;
     }
-   }
+  }
+}
+@media(min-width: 414px) {
+  .modal-page li a.prev, .modal-page li a.next {
+    width: 100px;
+  }
 }
