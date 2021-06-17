@@ -8,14 +8,23 @@
         <li class="breadcrumb-item active" aria-current="page">Data</li>
       </ol>
     </nav>
-    <div class="container">
-      <div class="row">
-        <div class="col-7">
-          <div class="productPicture">
-            <img :src="product.imageUrl" alt="productPicture">
-          </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-5">
+        <div class="productPicture">
+          <img :src="product.imageUrl" class="p-3" alt="productPicture">
         </div>
-        <div class="col-5"></div>
+      </div>
+      <div class="col-7">
+        <ul class="ms-7">
+          <li><h2 class="product-title fw-bolder">{{ product.title }}</h2></li>
+          <li>
+            <span class="badge bg-secondary align-self-center">{{ product.category }}</span>
+          </li>
+          <li>{{ product.description }}</li>
+          <li>{{ product.content }}</li>
+        </ul>
       </div>
     </div>
   </div>
