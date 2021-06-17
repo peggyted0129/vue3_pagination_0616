@@ -1,5 +1,9 @@
 <template>
 <section class="products">
+  <loading v-model:active="isLoading">
+    <img src="https://upload.cc/i1/2021/06/12/N7mIQ1.gif
+" alt="loading">
+  </loading>
   <div class="w-100 products-banner position-relative mb-13">
     <div class="sidebar mx-7 mx-md-13">
       <ul class="text-center d-flex flex-wrap justify-content-center">
@@ -27,7 +31,6 @@
             <div class="card-body bg-light px-5" style="height: 100px">
               <div class="d-flex justify-content-between mb-5">
                 <h5 class="card-title mb-0 text-theme fw-bolder">{{ item.title }}</h5>
-                <!-- <span class="badge bg-secondary align-self-center">{{ item.category }}</span> -->
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="h6 text-streak fw-bolder" style="font-size:18px">NT$ {{ item.price }} 元</div>
@@ -53,6 +56,7 @@
 </template>
 <script>
 import ProductsPagination from '@/components/front/ProductsPagination.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -60,7 +64,6 @@ export default {
   },
   data () {
     return {
-      isLoading: false,
       products: [], // 產品列表
       categories: [],
       searchText: '',
@@ -79,6 +82,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['isLoading']),
     filterData () {
       const vm = this
       if (vm.searchText) {
@@ -108,12 +112,12 @@ export default {
     },
     getProducts () {
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
       vm.$http.get(api).then((res) => {
         console.log('產品 All 列表', res.data)
         if (res.data.success) {
-          vm.isLoading = false
+          vm.$store.dispatch('updateLoading', false)
           vm.products = res.data.products
           // 挑出不重複的 categories
           const categories = new Set()

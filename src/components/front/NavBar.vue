@@ -3,12 +3,12 @@
   <nav :class="{ 'navbar-scroll': scrollHeader , 'bg-theme' : togglerBtn }" class="navbar navbar-expand-md py-0">
     <div class="container-fluid container-md align-items-center my-2 my-sm-4 my-md-0">
       <h1 class="h3 ml-5 ml-md-0">
-        <router-link :to="{ name: 'Home' }" @click="navScrollUp" class="navbar-logo fw-bold ps-7 ps-sm-0" :class="{ 'text-white' : togglerBtn }">Sebamed</router-link>
+        <router-link :to="{ name: 'Home' }" @click="togglerBtn = false" class="navbar-logo fw-bold ps-7 ps-sm-0" :class="{ 'text-white' : togglerBtn }">Sebamed</router-link>
       </h1>
       <button class="navbar-toggler" @click="dropdownOpen('togglerBtn')" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <div class="position-relative">
           <span class="toggler-bar toggler-bar-top" :class="{ 'toggler-bar-top-rotate' : togglerBtn, 'bg-white' : togglerBtn }"></span>
-          <span class="toggler-bar toggler-bar-middle"></span>
+          <span class="toggler-bar toggler-bar-middle" :class="{ 'd-none' : togglerBtn }"></span>
           <span class="toggler-bar toggler-bar-bottom" :class="{ 'toggler-bar-bottom-rotate' : togglerBtn, 'bg-white' : togglerBtn }"></span>
         </div>
       </button>
@@ -78,13 +78,14 @@ export default {
   },
   methods: {
     navScrollUp () { // 在漢堡選單狀態點選<a>，會自動收闔選單並導向正確路徑
-      this.dropdownOpen('togglerBtn')
+      // this.dropdownOpen('togglerBtn')
       $('.navbar-collapse').removeClass('show')
+      this.togglerBtn = false
     },
     dropdownOpen (isOpen) {
       if (isOpen === 'togglerBtn') {
         this[isOpen] = !this[isOpen]
-        $('.toggler-bar-middle').toggleClass('d-none')
+        // $('.toggler-bar-middle').toggleClass('d-none')
       }
       // if (isOpen === 'isProductDropdown') {
       //   this[isOpen] = !this[isOpen]
@@ -121,6 +122,7 @@ export default {
       if (to.path !== from.path) {
         vm.routerName = to.name
         vm.scrollPage()
+        window.scrollTo(0, 0)
       }
     }
   },
