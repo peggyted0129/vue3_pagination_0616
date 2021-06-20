@@ -98,29 +98,68 @@
 .breadcrumb-item + .breadcrumb-item {
   font-size: 20px; // 斜線大小
 }
+/*
 .productPicture {
   position: relative;
   height: 80%;
   padding-bottom: 75%;
 }
+*/
 .productPicture img {
-  position: absolute;
+  // position: absolute;
   background: $white;
   width: 100%;
-  height: 450px;
+  height: 350px;
   top: -30%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: 50% 50%;
   border: 1px solid rgba(0, 0, 0, 0.125);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   transition: .3s;
+}
+@include smobile { // 375px
+  .productPicture {
+    margin: 0 20px 0;
+  }
+  .productPicture img {
+    height: 380px;
+  }
+}
+@media (min-width: 414px){
+  .productPicture {
+    margin: 0 40px 0;
+  }
+  .productPicture img {
+    height: 340px;
+  }
+}
+@media (min-width: 460px){
+  .productPicture {
+    margin: 0 40px 0;
+  }
+  .productPicture img {
+    height: 450px;
+  }
+}
+@include mobile { // 576px
+  .productPicture {
+    margin: 0 0px 0;
+  }
+  .productPicture img {
+    height: 550px;
+  }
+}
+@include pad {
+  .productPicture img {
+    height: 450px;
+  }
 }
 .product-title {
   position: relative;
   margin: 15px 0 30px;
   &::after {
     content: "";
-    width: 53%;
+    width: 65%;
     height: 8px;
     position: absolute;
     bottom: 5px;
@@ -131,7 +170,6 @@
 .product-content {
   position: relative;
   width: 100%;
-  margin-top: 30px;
   padding: 15px;
   padding-top: 30px;
   padding-bottom: 0;
@@ -141,12 +179,22 @@
     position: absolute;
     top: -27px;
     left: -3px;
-    font-size: 40px;
+    font-size: 32px;
     font-weight: 900;
     letter-spacing: 1px;
     line-height: 48px;
     color: hsla(0,0%,69.8%,.3);
     background-color: #fefefe;
+  }
+}
+@include smobile {
+  .product-content h3 {
+    font-size: 40px;
+  }
+}
+@include mobile {
+  .product-content h3 {
+    font-size: 48px;
   }
 }
 .product-left {
@@ -170,6 +218,7 @@
     border-left: 0px solid #fff;
     border-right: 35px solid #fff;
     z-index: 1;
+    display: none;
   }
   &::after {
     position: absolute;
@@ -181,8 +230,10 @@
 		border-bottom: 36px solid transparent;
     border-left: 0px solid #ccc;
     border-right: 36px solid #ccc;
+    display: none;
   }
-}.product-right {
+}
+.product-right {
   position: relative;
   box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
   border-radius: .4em;
@@ -203,6 +254,7 @@
     border-left: 35px solid #fff;
     border-right: 0px solid #fff;
     z-index: 1;
+    display: none;
   }
   &::after {
     position: absolute;
@@ -214,6 +266,7 @@
 		border-bottom: 36px solid transparent;
     border-left: 36px solid #ccc;
     border-right: 0px solid #ccc;
+    display: none;
   }
 }
 .product-line {
@@ -227,6 +280,7 @@
     background-color: #eeeeee;
     left: 50%;
     margin-left: -1.5px;
+    display: none;
   }
 }
 .product-line li .product-linebadge {
@@ -242,20 +296,79 @@
   margin-left: -25px;
   background-color: #999999;
   border-radius: 50%;
+  display: none;
 }
-.product-line li:nth-child(1) .product-linebadge {
-  top: 140px;
+.product-pic {
+  width: 90%;
+  height: auto;
 }
-.product-line li:nth-child(2) .product-linebadge {
-  top: 475px;
+.product-txt {
+  width: 90%;
+  height: auto;
 }
-.product-line li:nth-child(3) .product-linebadge {
-  top: 805px;
+.product-line li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
 }
-.product-line li:nth-child(4) .product-linebadge {
-  top: 1140px;
+@media(min-width: 678px) {
+  .product-line li {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0px;
+  }
+  .product-left:before {
+    display: block;
+  }
+  .product-left:after {
+    display: block;
+  }
+  .product-right:before {
+    display: block;
+  }
+  .product-right:after {
+    display: block;
+  }
+  .product-line li:nth-child(2) .product-pic {
+    order: 2;
+  }
+  .product-line li:nth-child(4) .product-pic {
+    order: 2;
+  }
+  .product-pic {
+    width: 430px;
+    height: auto;
+  }
+  .product-txt {
+    width: 400px;
+    height: auto;
+  }
 }
-
+@include pad {
+ //
+}
+@include desktop { // 992
+  .product-line:before {
+    display: block;
+  }
+  .product-line li .product-linebadge {
+    display: block;
+  }
+  .product-line li:nth-child(1) .product-linebadge {
+    top: 115px;
+  }
+  .product-line li:nth-child(2) .product-linebadge {
+    top: 405px;
+  }
+  .product-line li:nth-child(3) .product-linebadge {
+    top: 695px;
+  }
+  .product-line li:nth-child(4) .product-linebadge {
+    top: 980px;
+  }
+}
 /* 後台 BackShopping.vue */
 .back-category li {
   border-right: 2px solid $hgray;

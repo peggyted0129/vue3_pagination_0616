@@ -13,21 +13,21 @@
       </ol>
     </nav>
   </div>
-  <div class="container mb-15">
-    <div class="row mb-13">
-      <div class="col-5">
+  <div class="container-xl px-5 px-sm-8 mb-15">
+    <div class="row mb-15 mb-md-20 mx-md-0 mx-sm-13">
+      <div class="col-md-6 col-lg-5 mb-5 mb-md-0">
         <div class="productPicture">
           <img :src="product.imageUrl" class="p-3" alt="productPicture">
         </div>
       </div>
-      <div class="col-7">
-        <ul class="ms-7">
+      <div class="col-md-6 col-lg-7">
+        <ul class="ms-md-7">
           <li><h2 class="product-title fw-bolder">{{ product.title }}</h2></li>
           <li class="mb-7">
             <span class="badge bg-secondary rounded-pill h5 px-5 py-2">{{ product.category }}</span>
           </li>
           <li class="h5 mb-7">{{ product.description }}</li>
-          <li class="h6 mb-7">{{ product.content }}</li>
+          <li class="h6 mb-7 mb-lg-13">{{ product.content }}</li>
           <li class="h6 mb-7 d-flex justify-content-between align-items-end">
             <p class="h4">售價 NT$ {{ product.price }}</p>
             <div class="d-flex flex-column justify-content-end">
@@ -36,7 +36,7 @@
                 <button type="button" class="input-group-text btn btn-theme" @click="cartBtn('minus')" :disabled="num === 1">
                   <i class="fas fa-minus"></i>
                 </button>
-                <input type="number" v-model.number="num" class="form-control text-center ps-7 m-0 cartNum" readonly>
+                <input type="number" v-model.number="num" class="form-control text-center ps-5 m-0 cartNum" readonly>
                 <button type="button" class="input-group-text btn btn-theme" @click="cartBtn('add')" :disabled="num === 10">
                   <i class="fas fa-plus"></i>
                 </button>
@@ -54,12 +54,12 @@
       <h3>值得信賴的好品牌</h3>
     </div>
     <ul class="product-line">
-      <li class="d-flex align-items-center">
-        <div class="w-40">
-          <img src="https://images.unsplash.com/photo-1567896079745-b0b7e5a47679?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI1fGJvOGpRS1RhRTBZfHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+      <li>
+        <div class="product-pic">
+          <img src="../../assets/img/product_content.png" alt="經典暢銷品">
         </div>
-        <div class="w-40 h-100 ms-20">
-          <div class="product-left d-flex flex-column align-items-center justify-content-center p-13">
+        <div class="product-txt">
+          <div class="product-left d-flex flex-column align-items-center justify-content-center p-5 p-sm-10">
             <h4 class="h3 text-sgreen">經典暢銷品</h4>
             <p class="h5">累積熱銷超過 1300 座台北 101</p>
           </div>
@@ -68,12 +68,12 @@
           <i class="far fa-thumbs-up"></i>
         </div>
       </li>
-      <li class="d-flex align-items-center">
-        <div class="w-40 order-2">
-          <img src="https://images.unsplash.com/photo-1567896079745-b0b7e5a47679?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI1fGJvOGpRS1RhRTBZfHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+      <li>
+        <div class="product-pic">
+          <img src="../../assets/img/product_content1.png" alt="肌膚最佳守門員">
         </div>
-        <div class="w-40 h-100 me-auto ms-9 order-1">
-          <div class="product-right d-flex flex-column align-items-center justify-content-center p-13">
+        <div class="product-txt">
+          <div class="product-right d-flex flex-column align-items-center justify-content-center p-5 p-sm-10">
             <h4 class="h3 text-sgreen">肌膚最佳守門員</h4>
             <p class="h5">溫和淨膚無添加有害物質、不含防腐劑</p>
           </div>
@@ -82,12 +82,12 @@
           <i class="far fa-thumbs-up"></i>
         </div>
       </li>
-      <li class="d-flex align-items-center">
-        <div class="w-40">
-          <img src="https://images.unsplash.com/photo-1567896079745-b0b7e5a47679?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI1fGJvOGpRS1RhRTBZfHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+      <li>
+        <div class="product-pic">
+          <img src="../../assets/img/product_content2.png" alt="歐洲防過敏">
         </div>
-        <div class="w-40 h-100 ms-20">
-          <div class="product-left d-flex flex-column align-items-center justify-content-center p-13">
+        <div class="product-txt">
+          <div class="product-left d-flex flex-column align-items-center justify-content-center p-5 p-sm-10">
             <h4 class="h3 text-sgreen">精選歐盟法規認證成分</h4>
             <p class="h5">歐洲防過敏研究中心認證</p>
           </div>
@@ -96,12 +96,12 @@
           <i class="far fa-thumbs-up"></i>
         </div>
       </li>
-       <li class="d-flex align-items-center">
-        <div class="w-40 order-2">
-          <img src="https://images.unsplash.com/photo-1567896079745-b0b7e5a47679?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI1fGJvOGpRS1RhRTBZfHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+      <li>
+        <div class="product-pic">
+          <img src="../../assets/img/product_content3.png" alt="醫師研發植萃配方">
         </div>
-        <div class="w-40 h-100 me-auto ms-19 order-1">
-          <div class="product-right d-flex flex-column align-items-center justify-content-center p-13">
+        <div class="product-txt">
+          <div class="product-right d-flex flex-column align-items-center justify-content-center p-5 p-sm-10">
             <h4 class="h3 text-sgreen">醫師研發植萃配方</h4>
             <p class="h5">逾半世紀對敏弱肌地細心呵護</p>
           </div>
