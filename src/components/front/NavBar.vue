@@ -15,10 +15,16 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item ms-2 py-4">
-            <a class="nav-link" href="#" @click="navScrollUp">最新消息</a>
-          </li>
-          <li class="nav-item ms-2 py-4">
             <router-link to="/products" class="nav-link" @click="navScrollUp">產品總覽</router-link>
+          </li>
+          <!-- <li class="nav-item ms-2 py-4">
+            <a class="nav-link" href="#" @click="navScrollUp">購物車</a>
+          </li> -->
+          <li class="nav-item ms-2 py-4">
+            <router-link to="/cart" class="nav-link" @click="navScrollUp">
+              <span class="me-1">購物車</span>
+              <i class="fas fa-shopping-basket"></i>
+            </router-link>
           </li>
           <li class="nav-item ms-2 py-4">
             <a class="nav-link" href="#" @click="navScrollUp">購買地點</a>

@@ -34,11 +34,11 @@
               </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="h6 text-streak fw-bolder" style="font-size:18px">NT$ {{ item.price }} 元</div>
-                <button type="button" @click.prevent="addCart(item.id)" class="btn position-absolute zindex-1 cart-icon hvr-pulse py-5 px-2">
-                  <i :class="{ 'disappear' : item.id === loadingStatus.loadingItem }" class="fas fa-cart-plus me-1" style="font-size: 28px"></i>
-                  <i v-if="item.id === loadingStatus.loadingItem" class="fas fa-spinner fa-pulse me-1" style="font-size: 28px;color:#b2b2b2"></i>
+                <button type="button" @click.prevent="addlocalCarts(item)" class="btn position-absolute zindex-1 cart-icon py-5 px-2">
+                  <i class="fas fa-cart-plus me-1" style="font-size: 28px"></i>
+                  <!-- <i v-if="item.id === loadingStatus.loadingItem" class="fas fa-spinner fa-pulse me-1" style="font-size: 28px;color:#b2b2b2"></i> -->
                 </button>
-                <button type="button" class="btn position-absolute zindex-1 thumbs-icon hvr-pulse py-5 px-2">
+                <button type="button" class="btn position-absolute zindex-1 thumbs-icon py-5 px-2">
                   <i class="fas fa-thumbs-up me-1" style="font-size: 28px"></i>
                 </button>
               </div>
@@ -78,7 +78,8 @@ export default {
         hasPage: false,
         hasNext: true
       },
-      AllProducts: []
+      AllProducts: [],
+      carData: JSON.parse(sessionStorage.getItem('carData')) || []
     }
   },
   computed: {
@@ -95,6 +96,48 @@ export default {
     }
   },
   methods: {
+    addlocalCarts (product, qty = 1) {
+      const vm = this
+      const cacheCarID = []
+      vm.carData.forEach((item) => {
+        cacheCarID.push(item.product_id)
+      })
+      vm.toastTopEnd(`${product.title} 加入購物車`, 'success')
+      if (cacheCarID.indexOf(product.id) === -1) {
+        const cartContent = {
+          product_id: product.id,
+          qty: qty,
+          title: product.title,
+          imageUrl: product.imageUrl,
+          unit: product.unit,
+          origin_price: product.origin_price,
+          price: product.price,
+          category: product.category
+        }
+        vm.carData.push(cartContent)
+        sessionStorage.setItem('carData', JSON.stringify(vm.carData))
+      } else {
+        let cache = {}
+        vm.carData.forEach((item, key) => {
+          if (item.product_id === product.id) {
+            let { qty } = item
+            cache = {
+              product_id: product.id,
+              qty: qty += 1,
+              title: product.title,
+              imageUrl: product.imageUrl,
+              unit: product.unit,
+              origin_price: product.origin_price,
+              price: product.price,
+              category: product.category
+            }
+            vm.carData.splice(key, 1)
+          }
+        })
+        vm.carData.push(cache)
+        sessionStorage.setItem('carData', JSON.stringify(vm.carData))
+      }
+    },
     searchTitle (txt, num) {
       this.searchText = txt
       const title = document.querySelectorAll('.products-title')
@@ -163,7 +206,7 @@ export default {
       }
       this.getProducts()
     },
-    addCart (id, qty = 1) {
+    addCart (id, qty = 1) { // === 預計刪除
       const vm = this
       vm.loadingStatus.loadingItem = id
       const cart = {

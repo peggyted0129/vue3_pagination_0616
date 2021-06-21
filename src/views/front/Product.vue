@@ -42,7 +42,7 @@
                 </button>
               </div>
               <!-- 加入購物車 -->
-              <button type="button" class="btn btn-theme hvr-bounce-to-right">
+              <button type="button" @click="addlocalCarts(product, num)" class="btn btn-theme hvr-bounce-to-right">
                 <i class="fas fa-shopping-cart pe-3"></i>加入購物車
               </button>
             </div>
@@ -119,6 +119,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
+      carData: JSON.parse(sessionStorage.getItem('carData')) || [],
       productId: '',
       num: 1
     }
@@ -129,12 +130,64 @@ export default {
   },
   methods: {
     ...mapActions('productModules', ['getProducts', 'getProduct']),
+    addlocalCarts (product, num) { // num 已經在初始值設定為 1， 所以參數不用再設定初始值
+      const vm = this
+      const cacheCarID = []
+      vm.carData.forEach((item) => {
+        cacheCarID.push(item.product_id)
+      })
+      vm.toastTopEnd(`${product.title} 加入購物車`, 'success')
+      if (cacheCarID.indexOf(product.id) === -1) {
+        const cartContent = {
+          product_id: product.id,
+          qty: num,
+          title: product.title,
+          imageUrl: product.imageUrl,
+          unit: product.unit,
+          origin_price: product.origin_price,
+          price: product.price,
+          category: product.category
+        }
+        vm.carData.push(cartContent)
+        sessionStorage.setItem('carData', JSON.stringify(vm.carData))
+      } else {
+        let cache = {}
+        vm.carData.forEach((item, key) => {
+          if (item.product_id === product.id) {
+            let { qty } = item
+            cache = {
+              product_id: product.id,
+              qty: qty += num,
+              title: product.title,
+              imageUrl: product.imageUrl,
+              unit: product.unit,
+              origin_price: product.origin_price,
+              price: product.price,
+              category: product.category
+            }
+            vm.carData.splice(key, 1)
+          }
+        })
+        vm.carData.push(cache)
+        sessionStorage.setItem('carData', JSON.stringify(vm.carData))
+      }
+    },
     cartBtn (status) {
       if (status === 'add') {
         this.num += 1
       } else if (status === 'minus') {
         this.num -= 1
       }
+    },
+    toastTopEnd (msg, icon) {
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        icon: icon,
+        title: msg
+      })
     }
   },
   created () {
@@ -144,3 +197,8 @@ export default {
   }
 }
 </script>
+<style scope>
+.swal2-container {
+  margin-top: 150px;
+}
+</style>
