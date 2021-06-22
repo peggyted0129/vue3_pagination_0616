@@ -14,22 +14,22 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item ms-2 py-4">
+          <li class="nav-item">
             <router-link to="/products" class="nav-link" @click="navScrollUp">產品總覽</router-link>
           </li>
           <!-- <li class="nav-item ms-2 py-4">
             <a class="nav-link" href="#" @click="navScrollUp">購物車</a>
           </li> -->
-          <li class="nav-item ms-2 py-4">
+          <li class="nav-item">
             <router-link to="/cart" class="nav-link" @click="navScrollUp">
               <span class="me-1">購物車</span>
               <i class="fas fa-shopping-basket"></i>
             </router-link>
           </li>
-          <li class="nav-item ms-2 py-4">
+          <li class="nav-item">
             <a class="nav-link" href="#" @click="navScrollUp">購買地點</a>
           </li>
-          <li class="nav-item ms-2 py-4">
+          <li class="nav-item">
             <a class="nav-link d-flex" @click="dropdownOpen('isSkinDropdown')" href="#">
               <span>美肌顧問</span>
               <span class="ms-1 arrowDown-pad d-none d-md-block"><i class="fas fa-chevron-down"></i></span>
@@ -46,7 +46,7 @@
               </li>
             </ul>
             <!-- 電腦版 -->
-            <ul class="navbar-menu navbar-skin-menu bg-theme p-7 ms-3 d-none d-md-block">
+            <ul class="navbar-menu navbar-skin-menu bg-theme p-7 ms-3">
               <li class="mb-5">
                 <a href="#">[ 小資美學堂 ] 肌膚 你不知道的奧秘</a>
               </li>
@@ -55,7 +55,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item ms-2 py-4">
+          <li class="nav-item">
             <router-link to="/login" class="nav-link" @click="navScrollUp">
               <span>後台登入</span>
               <span class="ms-1"><i class="fas fa-sign-in-alt"></i></span>

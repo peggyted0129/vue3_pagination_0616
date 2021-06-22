@@ -30,18 +30,6 @@
       color: $white;
     }
   }
-  &-menu {
-    opacity: 0;
-    position: absolute;
-    top: 131%;
-    transition: all .8s ease;
-    & li a {
-      color: $streak;
-    }
-    & li a:hover {
-      color: $white;
-    }
-  }
 }
 .navbar-product-menu {
   left: 40.5%;
@@ -49,10 +37,6 @@
 .navbar-skin-menu {
   right: 12px;
   width: 31%;
-}
-.nav-item:hover .navbar-menu {
-  opacity: 1;
-  transform: translateY(-20px);
 }
 .nav-link {
   color: $white;
@@ -62,8 +46,7 @@
 }
 .nav-link {
   position: relative;
-  border-bottom: 2px solid transparent;
-  transition: .3s ease-out all;
+  transition: .8s ease-out all;
   &::before {
     @include nav-hover;
   }
@@ -72,6 +55,31 @@
   background: $white;
 }
 @include pad {
+  .navbar-menu {
+    opacity: 0;
+    // display: none;
+    position: absolute;
+    top: 131%;
+    transition: all .5s ease;
+    & li a {
+      color: $streak;
+    }
+    & li a:hover {
+      color: $white;
+    }
+  }
+  .nav-item:hover .navbar-menu {
+    opacity: 1;
+    // display: block;
+    transition: .5s ease-out all;
+    transform: translateY(-20px);
+  }
+  .navbar-expand-md .navbar-nav .nav-link {
+    height: 66px;
+    line-height: 66px;
+    padding: 0;
+    margin-left: 12px;
+  }
   .nav-item:hover .nav-link::before {
     width: 100%;
   }
@@ -98,7 +106,6 @@
 }
 .nav-item:hover .nav-link {
   color: $lgreen;
-  // transform: scale(1.05);
 }
 .navbar .container-md {
   padding: 0 15px;
@@ -120,7 +127,7 @@
     padding-left: var(--bs-gutter-x, 0.75rem);
   }
 }
-/*----------- RWD navbar 手風琴效果下拉選單 -----------*/
+/*--- RWD navbar 手風琴效果下拉選單 ---*/
 .nav-link {
   transition: .3s ease-out all;
 }

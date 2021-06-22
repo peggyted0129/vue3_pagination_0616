@@ -119,9 +119,6 @@
   </header>
 </template>
 <script>
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-
 export default {
   data () {
     return {
@@ -130,10 +127,7 @@ export default {
   methods: {
   },
   mounted () {
-    AOS.init({
-      offset: 120,
-      duration: 400
-    })
+    //
   }
 }
 </script>

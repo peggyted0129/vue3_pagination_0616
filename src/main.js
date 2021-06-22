@@ -12,6 +12,8 @@ import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.css'
 import 'bootstrap'
 import jquery from 'jquery'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 import App from './App.vue'
 import router from './router'
@@ -33,6 +35,11 @@ const options = {
   showConfirmButton: false,
   timer: 1500
 }
+
+AOS.init({
+  offset: 120,
+  duration: 400
+})
 
 const app = createApp(App).use(store).use(router)
 app.config.productionTip = false
